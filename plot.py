@@ -4,19 +4,32 @@ import matplotlib.pyplot as plt
 def sortByFirst(a, b):
   return zip(*sorted(zip(a, b)))
 
-def plot(results_per_alg, pid, fig_name):
+def mergeByFirst(a, b):
+  merged = {}
+  for siz, tim in zip(a, b):
+    if siz not in merged:
+      merged[siz] = []
+    merged[siz].append(tim)
+
+  ans = []
+  for siz in merged:
+    ans.append((siz, sum(merged[siz]) / len(merged[siz])))
+
+  return zip(*ans)
+
+def plot(results_per_alg, pid):
   fig, ax = plt.subplots()
   for alg in results_per_alg:
     x, y = results_per_alg[alg]
     x, y = sortByFirst(x, y)
+    x, y = mergeByFirst(x, y)
     ax.plot(x, y, '-x', label=alg)
   ax.set_xlabel('Pattern(s) size')
   ax.set_ylabel('Execution time')
 
   ax.legend(loc='best', fancybox=True, framealpha=0.5)
-  # fig.suptitle(pid)
 
-  fig.savefig(fig_name)
+  fig.savefig('figs/{}.png'.format(pid))
   plt.close(fig)
 
 def getResults():
@@ -28,6 +41,7 @@ def getResults():
       siz = int(siz)
       err = int(err)
       tim = float(tim)
+      if tim > 45.0: continue
 
       if pid not in results_per_plt:
         results_per_plt[pid] = {}
@@ -43,6 +57,6 @@ def main():
 
   system('mkdir -p figs')
   for pid in results:
-    plot(results[pid], pid, 'figs/{}.png'.format(pid))
+    plot(results[pid], pid)
 
 if __name__ == '__main__': main()
