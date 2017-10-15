@@ -21,8 +21,8 @@ def plot(results_per_alg, pid):
   fig, ax = plt.subplots()
   for alg in results_per_alg:
     x, y = results_per_alg[alg]
-    x, y = sortByFirst(x, y)
     x, y = mergeByFirst(x, y)
+    x, y = sortByFirst(x, y)
     ax.plot(x, y, '-x', label=alg)
   ax.set_xlabel('Pattern(s) size')
   ax.set_ylabel('Execution time')
