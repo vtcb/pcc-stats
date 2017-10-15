@@ -25,7 +25,7 @@ def plot(results_per_alg, pid):
     x, y = sortByFirst(x, y)
     ax.plot(x, y, '-x', label=alg)
   ax.set_xlabel('Pattern(s) size')
-  ax.set_ylabel('Execution time')
+  ax.set_ylabel('Execution time (seconds)')
 
   ax.legend(loc='best', fancybox=True, framealpha=0.5)
 
@@ -41,7 +41,7 @@ def getResults():
       siz = int(siz)
       err = int(err)
       tim = float(tim)
-      if tim > 45.0: continue
+      if pid.startswith('exact') and tim > 45.0: continue
 
       if pid not in results_per_plt:
         results_per_plt[pid] = {}
