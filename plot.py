@@ -24,7 +24,11 @@ def plot(results_per_alg, pid):
     x, y = mergeByFirst(x, y)
     x, y = sortByFirst(x, y)
     ax.plot(x, y, '-x', label=alg)
-  ax.set_xlabel('Pattern(s) size')
+
+  if pid.startswith('multiple'):
+    ax.set_xlabel('Number of patterns')
+  else:
+    ax.set_xlabel('Pattern(s) size')
   ax.set_ylabel('Execution time (seconds)')
 
   ax.legend(loc='best', fancybox=True, framealpha=0.5)
