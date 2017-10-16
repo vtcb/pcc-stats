@@ -41,7 +41,7 @@ def getResults():
       siz = int(siz)
       err = int(err)
       tim = float(tim)
-      if pid.startswith('exact') and tim > 45.0: continue
+      if pid.startswith('exact') and tim > 48.0: continue
 
       if pid not in results_per_plt:
         results_per_plt[pid] = {}
